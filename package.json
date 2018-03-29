@@ -4,7 +4,8 @@
   "description": "Web client for the CrudibleMUD",
   "main": "client.js",
   "scripts": {
-    "start": "concurrently \"http-server -a localhost -p 8000\" \"start http://localhost:8000/\""
+    "open": "concurrently \"http-server -a localhost -p 8001\" \"start http://localhost:8001/\"",
+    "start": "http-server -a localhost -p 8001"
   },
   "repository": {
     "type": "git",
