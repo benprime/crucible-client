@@ -8,7 +8,11 @@
   socket.on('output', function(data) {
     logElement = document.getElementById('log');
     var atBottom = logElement.scrollHeight - logElement.scrollTop < logElement.clientHeight + 30;
-    var newHTML = data.message.replace(/\n/g, '<br />\n');
+    if(data.pre) {
+      var newHTML = data.message;
+    } else {
+      var newHTML = data.message.replace(/\n/g, '<br />\n');
+    }
     logElement.innerHTML = logElement.innerHTML + newHTML + '<br />';
     
     if(atBottom) {
