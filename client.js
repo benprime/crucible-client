@@ -33,7 +33,7 @@
   
   socket.on('hud', function(data) {
     var healthBar = document.getElementById('healthBar');
-    var hpText = `Health: ${data.currentHP} / ${data.maxHP}`;
+    var hpText = `Health: ${data.currentHP} / ${data.maxHP}&nbsp;&nbsp;<span class="silver">Time: ${data.dayPhase}</span>`;
     healthBar.innerHTML = hpText;
   });
 
