@@ -2,10 +2,19 @@
   "name": "crucible-client",
   "version": "0.1.0",
   "description": "Web client for the CrudibleMUD",
-  "main": "client.js",
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "socket.io-client": "^2.1.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.1.5"
+  },
   "scripts": {
-    "open": "concurrently \"http-server -a localhost -p 8001\" \"start http://localhost:8001/\"",
-    "start": "http-server -a localhost -p 8001"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -16,9 +25,5 @@
   "bugs": {
     "url": "https://github.com/slashben/CrucibleClient/issues"
   },
-  "homepage": "https://github.com/slashben/CrucibleClient#readme",
-  "devDependencies": {
-    "concurrently": "^3.5.1",
-    "http-server": "^0.11.1"
-  }
+  "homepage": "https://github.com/slashben/CrucibleClient#readme"
 }
