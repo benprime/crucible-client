@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slashben/CrucibleClient.git"
+    "url": "git+https://github.com/benprime/crucible-client.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/slashben/CrucibleClient/issues"
+    "url": "https://github.com/benprime/crucible-client/issues"
   },
-  "homepage": "https://github.com/slashben/CrucibleClient#readme"
+  "homepage": "https://github.com/benprime/crucible-client#readme"
 }
