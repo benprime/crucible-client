@@ -34,9 +34,12 @@
   socket.on('hud', function(data) {
     var healthBar = document.getElementById('healthBar');
     var hpText = `<span class="darkcyan">HP: ${data.currentHP}/${data.maxHP}</span>&nbsp;`;
-    hpText += `<span class="mediumOrchid">[</span>${data.status}<span class="mediumOrchid">]</span>&nbsp;`;
+    hpText += `<span class="mediumOrchid">[</span> ${data.status} <span class="mediumOrchid">]</span>&nbsp;`;
     hpText += `<span class="silver">Time: ${data.dayPhase}</span>&nbsp`;
     hpText += `<span class="teal">$${data.currency}</span>&nbsp`;
+
+    const states = data.states.length > 0 ? `[ ${data.states.join(', ')} ]` : '[ None ]';
+    hpText += `<span class="olive">${states}</span>`;
     healthBar.innerHTML = hpText;
   });
 
