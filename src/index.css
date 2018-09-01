@@ -47,13 +47,6 @@ pre {
   font-family: monospace;
 }
 
-#inputArea {
-  flex: 0 1 25px;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-}
-
 #healthBar {
   background-color: black;
   flex: 0 1 20px;

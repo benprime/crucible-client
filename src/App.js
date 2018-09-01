@@ -55,17 +55,16 @@ class App extends Component {
   }
 
   focusInput() {
-    /*
-    logElement = document.getElementById('log');
+    let logElement = document.getElementById('log');
     logElement.addEventListener('scroll', function (event) {
       var element = event.currentTarget;
       var atBottom = element.scrollHeight - element.scrollTop < element.clientHeight + 30;
       if (atBottom) {
-        actionNotify = document.getElementById('actionNotify');
+        let actionNotify = document.getElementById('actionNotify');
         actionNotify.style.display = 'none';
       }
     });
-*/
+
     document.getElementById("textData").focus();
   }
 
@@ -74,19 +73,13 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated
     };
-
+/*
     var display = <div id="flexbox"><Login props={childProps} /></div>;
 
     if (!this.state.isAuthenticating && this.state.isAuthenticated) {
-      display = <div id="flexbox" onClick={this.focusInput}>
-      <Log socket={socket} />
-      <div id="inputArea">
-        <input id="textData" onKeyDown={this.sendData} type="text" tabIndex="0" />
-      </div>
-      <div id="healthBar"></div>
-    </div>
+      display = 
     }
-
+*/
     return (
       <div id="flexbox" onClick={this.focusInput}>
         <Log socket={socket} />

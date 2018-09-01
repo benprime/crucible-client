@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import './CommandInput.css';
 
-var commandHistory = [];
-var historyIndex = -1;
-var socket;
+let commandHistory = [];
+let historyIndex = -1;
+let socket;
 
 export default class CommandInput extends Component {
 
     constructor(props) {
         super(props);
         socket = props.socket;
-        this.state = {
-        };
     }
 
     sendData(e) {

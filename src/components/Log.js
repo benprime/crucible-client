@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Log.css';
-import '../index.css';
 import ActionNotify from './ActionNotify';
 
 let socket;
@@ -13,7 +12,6 @@ export default class Log extends Component {
         super(props);
         socket = this.props.socket;
     }
-
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
@@ -71,7 +69,7 @@ export default class Log extends Component {
 
     render() {
         return (
-            <div className="log" id="log">
+            <div className="Log" id="log">
                 <ActionNotify />
             </div>
         );
