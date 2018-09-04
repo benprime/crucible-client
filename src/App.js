@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import openSocket from 'socket.io-client';
-import { Auth } from "aws-amplify";
-import Login from "./components/Login";
-import Log from "./components/Log";
-import CommandInput from "./components/CommandInput";
+import { Auth } from 'aws-amplify';
+import Login from './components/Login';
+import Log from './components/Log';
+import CommandInput from './components/CommandInput';
+import HealthBar from './components/HealthBar';
+import config from "./config";
 
-const socket = openSocket('http://localhost:3000');
+const socket = openSocket(config.crucibleMudSocketUri);
 
 class App extends Component {
   constructor(props) {
@@ -35,23 +37,13 @@ class App extends Component {
 
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
-    socket.on('hud', data => this.handleHud(data));
     this.focusInput();
   }
 
   handleLogout = async event => {
     await Auth.signOut();
     this.userHasAuthenticated(false);
-    this.props.history.push("/login");
-  }
-
-  handleHud(data) {
-    var healthBar = document.getElementById('healthBar');
-    var hpText = `<span class="darkcyan">HP: ${data.currentHP}/${data.maxHP}</span>&nbsp;`;
-    hpText += `<span class="mediumOrchid">[</span>${data.status}<span class="mediumOrchid">]</span>&nbsp;`;
-    hpText += `<span class="silver">Time: ${data.dayPhase}</span>&nbsp`;
-    hpText += `<span class="teal">$${data.currency}</span>&nbsp`;
-    healthBar.innerHTML = hpText;
+    this.props.history.push('/login');
   }
 
   focusInput() {
@@ -65,7 +57,7 @@ class App extends Component {
       }
     });
 
-    document.getElementById("textData").focus();
+    document.getElementById('textData').focus();
   }
 
   render() {
@@ -81,10 +73,10 @@ class App extends Component {
     }
 */
     return (
-      <div id="flexbox" onClick={this.focusInput}>
+      <div id="flexbox" className="App" onClick={this.focusInput}>
         <Log socket={socket} />
         <CommandInput socket={socket} />
-        <div id="healthBar"></div>
+        <HealthBar socket={socket} />
       </div>
     );
   }

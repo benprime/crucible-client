@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './CommandInput.css';
 
-let commandHistory = [];
-let historyIndex = -1;
-let socket;
-
 export default class CommandInput extends Component {
+    socket = null;
+    commandHistory = [];
+    historyIndex = -1;
 
     constructor(props) {
         super(props);
-        socket = props.socket;
+
+        this.socket = props.socket;
+        this.sendData = this.sendData.bind(this);
     }
 
     sendData(e) {
@@ -20,14 +21,14 @@ export default class CommandInput extends Component {
         // esc
         if (keyCode === 27) {
             tb.value = '';
-            historyIndex = -1;
+            this.historyIndex = -1;
         }
 
         // up arrow
         if (keyCode === 38) {
-            historyIndex++;
-            if (historyIndex > commandHistory.length - 1) historyIndex = commandHistory.length - 1;
-            tb.value = commandHistory[historyIndex];
+            this.historyIndex++;
+            if (this.historyIndex > this.commandHistory.length - 1) this.historyIndex = this.commandHistory.length - 1;
+            tb.value = this.commandHistory[this.historyIndex];
             return false;
         }
 
@@ -35,29 +36,29 @@ export default class CommandInput extends Component {
         if (keyCode === 40) {
 
             // if you push the down arrow when history index is already 0, just blank the field and return.
-            historyIndex--;
-            if (historyIndex > -1) {
-                tb.value = commandHistory[historyIndex];
+            this.historyIndex--;
+            if (this.historyIndex > -1) {
+                tb.value = this.commandHistory[this.historyIndex];
             } else {
                 tb.value = '';
             }
-            if (historyIndex < -1) historyIndex = -1;
+            if (this.historyIndex < -1) this.historyIndex = -1;
             return false;
         }
 
         // enter press
         if (keyCode === 13) {
             var input = tb.value.trim();
-            socket.emit('command', {
+            this.socket.emit('command', {
                 value: input
             });
             // only save command if it wasn't blank
             if (tb.value && input !== '') {
                 // only save command if it doesn't match the last one
-                if (commandHistory.length === 0 || commandHistory[0] !== input) {
-                    commandHistory.unshift(input); // save command
-                    commandHistory.splice(25); // only save 25 commands
-                    historyIndex = -1;
+                if (this.commandHistory.length === 0 || this.commandHistory[0] !== input) {
+                    this.commandHistory.unshift(input); // save command
+                    this.commandHistory.splice(25); // only save 25 commands
+                    this.historyIndex = -1;
                 }
             }
             tb.value = '';

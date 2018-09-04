@@ -1,15 +1,12 @@
+html, body, #app, #app>div {
+  height: 100%
+}
+
 body {
   background-color: black;
-  height: 100%;
   margin: 0px;
   padding: 0px;
   border: 0px;
-}
-
-#flexbox {
-  height: 100%;
-  flex-flow: column;
-  display: flex;
 }
 
 table {
@@ -44,27 +41,6 @@ td:first-child {
 }
 
 pre {
-  font-family: monospace;
-}
-
-#healthBar {
-  background-color: black;
-  flex: 0 1 20px;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  color: green;
-  font-family: monospace;
-}
-
-input {
-  font-family: monospace;
-}
-
-input[type=text] {
-  background-color: black;
-  color: gainsboro;
-  width: 100%;
   font-family: monospace;
 }
 

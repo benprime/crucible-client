@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import './Log.css';
 import ActionNotify from './ActionNotify';
 
-let socket;
-let actionNotify;
-let logElement;
-let actionNotifySound = new Audio('cardSlide1.wav');
-
 export default class Log extends Component {
+    socket = null;
+
     constructor(props){
         super(props);
-        socket = this.props.socket;
+
+        this.socket = props.socket;
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
-        socket.on('output', data => this.handleOutput(data));
+        this.socket.on('output', data => this.handleOutput(data));
     }
 
     componentWillUnmount() {
@@ -23,9 +21,9 @@ export default class Log extends Component {
     }
 
     handleOutput(data) {
-        logElement = document.getElementById('log');
-        var atBottom = logElement.scrollHeight - logElement.scrollTop < logElement.clientHeight + 30;
-        var newHTML;
+        let logElement = document.getElementById('log');
+        let atBottom = logElement.scrollHeight - logElement.scrollTop < logElement.clientHeight + 30;
+        let newHTML;
 
         if (data.pre) {
             newHTML = data.message;
@@ -40,8 +38,10 @@ export default class Log extends Component {
         if (atBottom) {
             this.scrollLogToBottom();
         } else {
-            actionNotify = document.getElementById('actionNotify');
+            let actionNotify = document.getElementById('actionNotify');
             actionNotify.style.display = 'block';
+
+            let actionNotifySound = new Audio("cardSlide1.wav");
             actionNotifySound.play();
         }
 
@@ -57,20 +57,20 @@ export default class Log extends Component {
         var element = event.currentTarget;
         var atBottom = element.scrollHeight - element.scrollTop < element.clientHeight + 30;
         if (atBottom) {
-            actionNotify = document.getElementById('actionNotify');
+            let actionNotify = document.getElementById('actionNotify');
             actionNotify.style.display = 'none';
         }
     }
 
     scrollLogToBottom() {
-        logElement = document.getElementById('log');
+        let logElement = document.getElementById('log');
         logElement.scrollTop = logElement.scrollHeight;
     }
 
     render() {
         return (
             <div className="Log" id="log">
-                <ActionNotify />
+                <ActionNotify onClick={this.scrollLogToBottom} />
             </div>
         );
     }
