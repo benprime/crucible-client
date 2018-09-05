@@ -52,66 +52,6 @@
     font-family: monospace;
 }
 
-.green {
-    color: green;
-}
-
-.red {
-    color: red;
-}
-
-.aqua {
-    color: aqua;
-}
-
-.cyan {
-    color: cyan;
-}
-
-.darkCyan {
-    color: darkcyan;
-}
-
-.gray {
-    color: gray;
-}
-
-.silver {
-    color: silver;
-}
-
-.white {
-    color: white;
-}
-
-.purple {
-    color: purple;
-}
-
-.teal {
-    color: teal;
-}
-
-.mediumOrchid {
-    color: mediumorchid;
-}
-
-.olive {
-    color: olive;
-}
-
-.gainsboro {
-    color: gainsboro;
-}
-
-.firebrick {
-    color: firebrick;
-}
-
-.yellow {
-    color: khaki;
-}
-
 @keyframes shake {
     10%, 90% {
         transform: translate3d(-1px, 0, 0);

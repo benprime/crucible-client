@@ -12,6 +12,6 @@
 .CommandInput input[type=text] {
     background-color: black;
     color: gainsboro;
-    width: 100%;
     font-family: monospace;
+    width: 100%;
 }

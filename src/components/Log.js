@@ -5,14 +5,14 @@ import ActionNotify from './ActionNotify';
 export default class Log extends Component {
     socket = null;
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.socket = props.socket;
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', e => this.handleScroll(e));
         this.socket.on('output', data => this.handleOutput(data));
     }
 

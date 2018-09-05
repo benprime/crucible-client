@@ -5,14 +5,16 @@ import { Auth } from 'aws-amplify';
 import Login from './components/Login';
 import Log from './components/Log';
 import CommandInput from './components/CommandInput';
-import HealthBar from './components/HealthBar';
+import Hud from './components/Hud';
 import config from "./config";
 
-const socket = openSocket(config.crucibleMudSocketUri);
-
 class App extends Component {
+  socket = openSocket(config.crucibleMudSocketUri);;
+
   constructor(props) {
     super(props);
+
+    this.focusInput = this.focusInput.bind(this);
 
     this.state = {
       isAuthenticated: false,
@@ -31,7 +33,7 @@ class App extends Component {
         alert(e);
       }
     }
-
+    this.focusInput();
     this.setState({ isAuthenticating: false });
   }
 
@@ -43,7 +45,6 @@ class App extends Component {
   handleLogout = async event => {
     await Auth.signOut();
     this.userHasAuthenticated(false);
-    this.props.history.push('/login');
   }
 
   focusInput() {
@@ -73,10 +74,10 @@ class App extends Component {
     }
 */
     return (
-      <div id="flexbox" className="App" onClick={this.focusInput}>
-        <Log socket={socket} />
-        <CommandInput socket={socket} />
-        <HealthBar socket={socket} />
+      <div id="app" className="App" onClick={this.focusInput}>
+        <Log socket={this.socket} />
+        <CommandInput socket={this.socket} />
+        <Hud socket={this.socket} />
       </div>
     );
   }
