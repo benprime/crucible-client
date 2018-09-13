@@ -53,11 +53,11 @@
     font-family: monospace;
 }
 
-.Log_ActionNotify {
-    display: none;
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
+.ActionNotify {
+    display: block;
+    position: fixed;
+    right: 24px;
+    bottom: 50px;
     background: black;
     border-radius: 60%;
     width: 22px;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Log.css';
-import ActionNotify from './ActionNotify';
 
 export default class Log extends Component {
     socket = null;
@@ -22,16 +21,16 @@ export default class Log extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', e => this.handleScroll(e));
-        this.socket.on('output', data => this.handleOutput(data));
+        this.socket.on('output', this.handleOutput);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+    componentDidUpdate() {
+        if (this.atBottom()) {
+            this.scrollLogToBottom();
+        }
     }
 
     handleOutput(data) {
-
         let newHTML;
         if (data.pre) {
             newHTML = data.message;
@@ -41,16 +40,9 @@ export default class Log extends Component {
             newHTML = ""
         }
 
-        let actionNotify = false;
-        if (this.atBottom()) {
-            this.scrollLogToBottom();
-        } else {
-            actionNotify = true;
-        }
-
         this.setState(previousState => ({
             messages: [...previousState.messages, newHTML],
-            actionNotify: actionNotify
+            actionNotify: !this.atBottom()
         }));
 
         /*
@@ -64,7 +56,9 @@ export default class Log extends Component {
     }
 
     handleScroll(event) {
-        if (this.atBottom()) {
+        event.preventDefault();
+
+        if (this.state.actionNotify && this.atBottom()) {
             this.setState(previousState => ({
                 messages: previousState.messages,
                 actionNotify: false
@@ -73,25 +67,29 @@ export default class Log extends Component {
     }
 
     scrollLogToBottom() {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        this.messagesEnd.scrollIntoView({
+            block: 'start'
+        });
     }
 
     atBottom(offset = 0) {
-        let element = this.refs.Log;
-        if (!element) return false;
-        const top = element.getBoundingClientRect().top;
+        if (!this.messagesEnd) return false;
+        const top = this.messagesEnd.getBoundingClientRect().top;
         return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
     }
 
     render() {
         return (
-            <div id="log" ref="Log" className="Log">
-                {this.state.messages.map(message => (<div dangerouslySetInnerHTML={{ __html: message}} />))}
-                {this.state.actionNotify ? <ActionNotify onClick={this.scrollLogToBottom()} /> : null}
-                <div style={{ float: "left", clear: "both" }}
+            <div id="log" ref="Log" className="Log" onScroll={this.handleScroll}>
+                {this.state.messages.map((message, index) => (<div key={index} dangerouslySetInnerHTML={{ __html: message }} />))}
+                {this.state.actionNotify ?
+                    (<div id="actionNotify" className="ActionNotify" ref="ActionNotify" onClick={this.scrollLogToBottom}>
+                        <img src="ic_warning_white_18dp_1x.png" alt="Warning" />
+                    </div>)
+                    : null}
+                <div style={{ float: "left", clear: "both", marginBottom: "10px" }}
                     ref={(el) => { this.messagesEnd = el; }}>
                 </div>
-                <br />
             </div>
         );
     }
