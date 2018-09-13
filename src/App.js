@@ -6,15 +6,13 @@ import Login from './components/Login';
 import Log from './components/Log';
 import CommandInput from './components/CommandInput';
 import Hud from './components/Hud';
-import config from "./config";
+import config from './config';
 
 class App extends Component {
   socket = openSocket(config.crucibleMudSocketUri);;
 
   constructor(props) {
     super(props);
-
-    this.focusInput = this.focusInput.bind(this);
 
     this.state = {
       isAuthenticated: false,
@@ -33,13 +31,12 @@ class App extends Component {
         alert(e);
       }
     }
-    this.focusInput();
     this.setState({ isAuthenticating: false });
+    this.focusInput();
   }
 
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
-    this.focusInput();
   }
 
   handleLogout = async event => {
@@ -48,16 +45,6 @@ class App extends Component {
   }
 
   focusInput() {
-    let logElement = document.getElementById('log');
-    logElement.addEventListener('scroll', function (event) {
-      var element = event.currentTarget;
-      var atBottom = element.scrollHeight - element.scrollTop < element.clientHeight + 30;
-      if (atBottom) {
-        let actionNotify = document.getElementById('actionNotify');
-        actionNotify.style.display = 'none';
-      }
-    });
-
     document.getElementById('textData').focus();
   }
 
@@ -66,13 +53,13 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated
     };
-/*
-    var display = <div id="flexbox"><Login props={childProps} /></div>;
-
-    if (!this.state.isAuthenticating && this.state.isAuthenticated) {
-      display = 
-    }
-*/
+    /*
+        var display = <div id="flexbox"><Login props={childProps} /></div>;
+    
+        if (!this.state.isAuthenticating && this.state.isAuthenticated) {
+          display = 
+        }
+    */
     return (
       <div id="app" className="App" onClick={this.focusInput}>
         <Log socket={this.socket} />

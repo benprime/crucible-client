@@ -15,7 +15,7 @@ export default class CommandInput extends Component {
 
     sendData(e) {
         if (!e) e = window.event;
-        var tb = document.getElementById("textData");
+        var tb = this.refs.TextData;
         var keyCode = e.keyCode || e.which || e.charCode;
 
         // esc
@@ -69,7 +69,7 @@ export default class CommandInput extends Component {
     render() {
         return (
             <div id="inputArea" className="CommandInput">
-                <input id="textData" onKeyDown={this.sendData} type="text" tabIndex="0" />
+                <input id="textData" ref="TextData"  onKeyDown={this.sendData} type="text" tabIndex="0" />
             </div>
         );
     }

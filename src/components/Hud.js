@@ -26,11 +26,11 @@ export default class Hud extends Component {
     render() {
         return (
             <div id="hud" className="Hud">
-                <span class="darkcyan">HP: {this.state.currentHP}/{this.state.maxHP}</span>&nbsp;
-                <span class="mediumOrchid">[</span>{this.state.status}<span class="mediumOrchid">]</span>&nbsp;
-                <span class="silver">Time: {this.state.dayPhase}</span>&nbsp;
-                <span class="teal">${this.state.currency}</span>&nbsp;
-                <span class="olive">[{this.state.states.length > 0 ? this.state.states.join(', ') : ' None '}]</span>
+                <span className="darkcyan">HP: {this.state.currentHP}/{this.state.maxHP}</span>&nbsp;
+                <span className="mediumOrchid">[</span>{this.state.status}<span className="mediumOrchid">]</span>&nbsp;
+                <span className="silver">Time: {this.state.dayPhase}</span>&nbsp;
+                <span className="teal">${this.state.currency}</span>&nbsp;
+                <span className="olive">[{this.state.states.length > 0 ? this.state.states.join(', ') : ' None '}]</span>
             </div>
         );
     }

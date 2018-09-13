@@ -4,11 +4,21 @@ import ActionNotify from './ActionNotify';
 
 export default class Log extends Component {
     socket = null;
+    messagesEnd = null;
 
     constructor(props) {
         super(props);
 
         this.socket = props.socket;
+        this.scrollLogToBottom = this.scrollLogToBottom.bind(this);
+        this.handleOutput = this.handleOutput.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.atBottom = this.atBottom.bind(this);
+
+        this.state = {
+            messages: [],
+            actionNotify: false
+        }
     }
 
     componentDidMount() {
@@ -21,10 +31,8 @@ export default class Log extends Component {
     }
 
     handleOutput(data) {
-        let logElement = document.getElementById('log');
-        let atBottom = logElement.scrollHeight - logElement.scrollTop < logElement.clientHeight + 30;
-        let newHTML;
 
+        let newHTML;
         if (data.pre) {
             newHTML = data.message;
         } else if (data.message && data.message.length > 0) {
@@ -33,19 +41,21 @@ export default class Log extends Component {
             newHTML = ""
         }
 
-        logElement.innerHTML = logElement.innerHTML + newHTML + '<br />';
-
-        if (atBottom) {
+        let actionNotify = false;
+        if (this.atBottom()) {
             this.scrollLogToBottom();
         } else {
-            let actionNotify = document.getElementById('actionNotify');
-            actionNotify.style.display = 'block';
-
-            let actionNotifySound = new Audio("cardSlide1.wav");
-            actionNotifySound.play();
+            actionNotify = true;
         }
 
+        this.setState(previousState => ({
+            messages: [...previousState.messages, newHTML],
+            actionNotify: actionNotify
+        }));
+
         /*
+        logElement.innerHTML = logElement.innerHTML + newHTML;
+
         if(data.message.includes('You say "boogie"')) {
           ta.classList.toggle('shake');
           console.log(ta.class);
@@ -54,23 +64,34 @@ export default class Log extends Component {
     }
 
     handleScroll(event) {
-        var element = event.currentTarget;
-        var atBottom = element.scrollHeight - element.scrollTop < element.clientHeight + 30;
-        if (atBottom) {
-            let actionNotify = document.getElementById('actionNotify');
-            actionNotify.style.display = 'none';
+        if (this.atBottom()) {
+            this.setState(previousState => ({
+                messages: previousState.messages,
+                actionNotify: false
+            }));
         }
     }
 
     scrollLogToBottom() {
-        let logElement = document.getElementById('log');
-        logElement.scrollTop = logElement.scrollHeight;
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    atBottom(offset = 0) {
+        let element = this.refs.Log;
+        if (!element) return false;
+        const top = element.getBoundingClientRect().top;
+        return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
     }
 
     render() {
         return (
-            <div className="Log" id="log">
-                <ActionNotify onClick={this.scrollLogToBottom} />
+            <div id="log" ref="Log" className="Log">
+                {this.state.messages.map(message => (<div dangerouslySetInnerHTML={{ __html: message}} />))}
+                {this.state.actionNotify ? <ActionNotify onClick={this.scrollLogToBottom()} /> : null}
+                <div style={{ float: "left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+                <br />
             </div>
         );
     }
