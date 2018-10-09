@@ -1,0 +1,16 @@
+.CommandInput {
+    flex: 0 1 25px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+.CommandInput input {
+    background-color: black;
+    color: gainsboro;
+    font-family: monospace;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+}

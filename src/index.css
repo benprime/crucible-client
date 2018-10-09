@@ -1,0 +1,67 @@
+html, body, #root, #app {
+  background-color: black;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.aqua {
+  color: aqua;
+}
+
+.cyan {
+  color: cyan;
+}
+
+.darkCyan {
+  color: darkcyan;
+}
+
+.gray {
+  color: gray;
+}
+
+.silver {
+  color: silver;
+}
+
+.white {
+  color: white;
+}
+
+.purple {
+  color: purple;
+}
+
+.teal {
+  color: teal;
+}
+
+.mediumOrchid {
+  color: mediumorchid;
+}
+
+.olive {
+  color: olive;
+}
+
+.gainsboro {
+  color: gainsboro;
+}
+
+.firebrick {
+  color: firebrick;
+}
+
+.yellow {
+  color: khaki;
+}
