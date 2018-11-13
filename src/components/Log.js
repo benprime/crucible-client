@@ -24,12 +24,6 @@ export default class Log extends Component {
         this.socket.on('output', this.handleOutput);
     }
 
-    componentDidUpdate() {
-        if (this.atBottom()) {
-            this.scrollLogToBottom();
-        }
-    }
-
     handleOutput(data) {
         let newHTML;
         if (data.pre) {
@@ -40,10 +34,16 @@ export default class Log extends Component {
             newHTML = ""
         }
 
+        let atBottom = this.atBottom();
+
         this.setState(previousState => ({
             messages: [...previousState.messages, newHTML],
-            actionNotify: !this.atBottom()
+            actionNotify: !atBottom
         }));
+
+        if (atBottom) {
+            this.scrollLogToBottom();
+        }
 
         /*
         logElement.innerHTML = logElement.innerHTML + newHTML;
@@ -67,9 +67,7 @@ export default class Log extends Component {
     }
 
     scrollLogToBottom() {
-        this.messagesEnd.scrollIntoView({
-            block: 'start'
-        });
+        this.messagesEnd.scrollIntoView(true);
     }
 
     atBottom(offset = 0) {
