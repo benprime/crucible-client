@@ -27,7 +27,7 @@ export default class Hud extends Component {
         return (
             <div id="hud" className="Hud">
                 <span className="darkcyan">HP: {this.state.currentHP}/{this.state.maxHP}</span>&nbsp;
-                <span className="mediumOrchid">[</span>{this.state.status}<span className="mediumOrchid">]</span>&nbsp;
+                <span className={this.state.status.style}>[{this.state.status.text}]</span>&nbsp;
                 <span className="silver">Time: {this.state.dayPhase}</span>&nbsp;
                 <span className="teal">${this.state.currency}</span>&nbsp;
                 <span className="olive">[{this.state.states.length > 0 ? this.state.states.join(', ') : ' None '}]</span>
