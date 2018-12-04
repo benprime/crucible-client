@@ -7,7 +7,28 @@ import Hud from './components/Hud';
 import config from './config';
 
 class App extends Component {
-  socket = openSocket(config.crucibleMudSocketUri);;
+  constructor() {
+    super();
+
+    this.token = document.cookie;
+    let socketUrl = config.crucibleMudSocketUri;
+    if(this.token) {
+      socketUrl += '?token=' + this.token;
+    }
+    console.log('cookie', document.cookie);
+    console.log('url', socketUrl);
+
+    this.socket = openSocket(socketUrl).on('authentication', data => {
+      document.cookie = data.token;
+      console.log('token: ' + JSON.stringify(data));
+    });
+
+    // this is in-memory only... probably should be in a cookie for browser refresh
+    if(this.token) {
+      this.socket.emit('authentication', {token: this.token});
+    }
+  }
+
 
   async componentDidMount() {
     this.focusInput();
