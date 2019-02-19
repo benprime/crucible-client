@@ -1,0 +1,5 @@
+.Game {
+    height: 100%;
+    flex-flow: column;
+    display: flex;
+}

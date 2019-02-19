@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import openSocket from 'socket.io-client';
-import RegistraitonPage from './components/RegistraitonPage'
+import Log from './Log';
+import CommandInput from './CommandInput';
+import Hud from './Hud';
 import config from './config';
 
-class App extends Component {
+class Game extends Component {
   constructor() {
     super();
 
@@ -27,10 +29,21 @@ class App extends Component {
     }
   }
 
+
+  async componentDidMount() {
+    this.focusInput();
+  }
+
+  focusInput() {
+    document.getElementById('textData').focus();
+  }
+
   render() {
     return (
-      <div id="app" className="App" onClick={this.focusInput}>
-        <RegistraitonPage />
+      <div id="game" className="Game" onClick={this.focusInput}>
+        <Log socket={this.socket} />
+        <CommandInput socket={this.socket} />
+        <Hud socket={this.socket} />
       </div>
     );
   }
