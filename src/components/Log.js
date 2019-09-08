@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './Log.css';
+import { loginEvent } from '../services/auth-service';
 
 export default class Log extends Component {
-    socket = null;
     messagesEnd = null;
 
     constructor(props) {
         super(props);
 
-        this.socket = props.socket;
         this.scrollLogToBottom = this.scrollLogToBottom.bind(this);
         this.handleOutput = this.handleOutput.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
@@ -18,10 +17,11 @@ export default class Log extends Component {
             messages: [],
             actionNotify: false
         }
-    }
 
-    componentDidMount() {
-        this.socket.on('output', this.handleOutput);
+        loginEvent.on('login', (socket => {
+          console.log('hooking up log', socket);
+          socket.on('output', this.handleOutput);
+        }));
     }
 
     handleOutput(data) {

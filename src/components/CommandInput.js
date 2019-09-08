@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CommandInput.css';
-
+import { loginEvent } from '../services/auth-service';
 export default class CommandInput extends Component {
     socket = null;
     commandHistory = [];
@@ -9,7 +9,10 @@ export default class CommandInput extends Component {
     constructor(props) {
         super(props);
 
-        this.socket = props.socket;
+        loginEvent.on('login', (socket => {
+            this.socket = socket;
+        }));
+
         this.sendData = this.sendData.bind(this);
     }
 
@@ -69,7 +72,7 @@ export default class CommandInput extends Component {
     render() {
         return (
             <div id="inputArea" className="CommandInput">
-                <input id="textData" ref="TextData"  onKeyDown={this.sendData} type="text" tabIndex="0" />
+                <input id="textData" ref="TextData" onKeyDown={this.sendData} type="text" tabIndex="0" />
             </div>
         );
     }
