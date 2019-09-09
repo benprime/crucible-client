@@ -21,11 +21,11 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: rsync -am --stats --delete-after $TRAVIS_BUILD_DIR/build root@cruciblemud.com:/var/www/develop
+    script: rsync -am --stats --delete-after $TRAVIS_BUILD_DIR/build root@cruciblemud.com:/var/www/develop && ssh root@cruciblemud.com 'systemctl restart apache2'
     on:
       branch: develop
   - provider: script
     skip_cleanup: true
-    script: rsync -am --stats --delete-after $TRAVIS_BUILD_DIR/build root@cruciblemud.com:/var/www/html
+    script: rsync -am --stats --delete-after $TRAVIS_BUILD_DIR/build root@cruciblemud.com:/var/www/html && ssh root@cruciblemud.com 'systemctl restart apache2'
     on:
       branch: master
