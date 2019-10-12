@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
-import Log from './components/Log';
-import CommandInput from './components/CommandInput';
-import Hud from './components/Hud';
-import UserBar from './components/UserBar';
+import Home from './components/Home';
+import GameScreen from './components/GameScreen';
+import { loginEvent } from './services/auth-service';
 
 class App extends Component {
 
-  async componentDidMount() {
-    this.focusInput();
-  }
+  socket = null;
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false
+    };
 
-  focusInput() {
-    document.getElementById('textData').focus();
+    loginEvent.on('login', (() => {
+      console.log('just logged in')
+      this.setState({
+        loggedIn: true
+      });
+    }));
   }
 
   render() {
     return (
-      <div id="app" className="App">
-        <UserBar />
-        <Log />
-        <CommandInput />
-        <Hud />
+      <div>
+        {this.state.loggedIn
+          ? <GameScreen></GameScreen>
+          : <Home></Home>
+        }
       </div>
     );
   }

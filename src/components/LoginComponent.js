@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './UserBar.css';
+import './LoginComponent.css';
 import { login } from '../services/auth-service';
 
 
-export default class UserBar extends Component {
+export default class LoginComponent extends Component {
   socket = null;
 
   constructor(props) {

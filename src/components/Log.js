@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Log.css';
-import { loginEvent } from '../services/auth-service';
+import { socket } from '../services/auth-service';
 
 export default class Log extends Component {
     messagesEnd = null;
@@ -18,10 +18,11 @@ export default class Log extends Component {
             actionNotify: false
         }
 
-        loginEvent.on('login', (socket => {
-          console.log('hooking up log', socket);
-          socket.on('output', this.handleOutput);
-        }));
+        // loginEvent.on('login', (socket => {
+        //   console.log('hooking up log', socket);
+        //   socket.on('output', this.handleOutput);
+        // }));
+        socket.on('output', this.handleOutput);
     }
 
     handleOutput(data) {

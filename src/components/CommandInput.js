@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import './CommandInput.css';
-import { loginEvent } from '../services/auth-service';
+import { socket } from '../services/auth-service';
+
 export default class CommandInput extends Component {
-    socket = null;
     commandHistory = [];
     historyIndex = -1;
 
     constructor(props) {
         super(props);
 
-        loginEvent.on('login', (socket => {
-            this.socket = socket;
-        }));
-
         this.sendData = this.sendData.bind(this);
     }
+
+    async componentDidMount() {
+        this.focusInput();
+    }
+
+    focusInput() {
+        document.getElementById('textData').focus();
+    }
+
 
     sendData(e) {
         if (!e) e = window.event;
@@ -52,7 +57,7 @@ export default class CommandInput extends Component {
         // enter press
         if (keyCode === 13) {
             var input = tb.value.trim();
-            this.socket.emit('command', {
+            socket.emit('command', {
                 value: input
             });
             // only save command if it wasn't blank
