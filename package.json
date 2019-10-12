@@ -4,6 +4,7 @@
   "description": "Web client for the CrudibleMUD",
   "dependencies": {
     "aws-amplify": "^1.0.8",
+    "env-cmd": "^10.0.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "socket.io-client": "^2.1.1"
@@ -12,8 +13,9 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:develop": "env-cmd -f .env.develop react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -26,5 +28,5 @@
   "bugs": {
     "url": "https://github.com/benprime/crucible-client/issues"
   },
-  "homepage": "https://github.com/benprime/crucible-client#readme"
+  "homepage": "."
 }

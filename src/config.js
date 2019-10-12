@@ -1,3 +1,3 @@
 export default {
-    crucibleMudSocketUri: 'http://localhost:3000'
+    crucibleMudSocketUri: process.env.REACT_APP_SOCKET_URI
 };
