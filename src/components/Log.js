@@ -18,10 +18,6 @@ export default class Log extends Component {
             actionNotify: false
         }
 
-        // loginEvent.on('login', (socket => {
-        //   console.log('hooking up log', socket);
-        //   socket.on('output', this.handleOutput);
-        // }));
         socket.on('output', this.handleOutput);
     }
 

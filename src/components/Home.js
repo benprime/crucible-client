@@ -8,7 +8,6 @@ class Home extends Component {
     return (
     <div id="home" className="home">
     <pre>
-
       <div><span style={{color:"#b12020"}}>   ▄████████ ▀█████████▄  ███    █▄   ▄████████  ▄█  ▀█████████▄   ▄█      ▀███████████ </span></div>
       <div><span style={{color:"#b72c24"}}>  ███    ███   ███    ███ ███    ███ ███    ███ ███    ███    ███ ███        ███    ███ </span></div>
       <div><span style={{color:"#be3728"}}>  ███    ██▀   ███    ███ ███    ███ ███    █▀  ███▌   ███    ███ ███        ███    █▀  </span></div>

@@ -3,7 +3,8 @@ body {
 }
 
 .home {
-    text-align: center;
+  margin-top: 100px;
+  text-align: center;
 }
 
 .box-border {
