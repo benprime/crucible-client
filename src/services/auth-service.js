@@ -6,6 +6,20 @@ export let socket;
 
 export const loginEvent = new EventEmitter();
 
+export const errorFormatter = async resp => {
+  var json = await resp.json();
+  if(!resp.ok) {
+    let errors = [];
+    if(Array.isArray(json.errors)) {
+      errors = json.errors.map(e => e.msg);
+    } else {
+      errors = [json.message];
+    }
+    return Promise.reject(errors);
+  }
+  return json;
+};
+
 export const signup = (email, username, password) => {
   return fetch(`${config.crucibleMudSocketUri}/api/user/signup`, {
     method: 'POST',
@@ -17,7 +31,8 @@ export const signup = (email, username, password) => {
       username,
       password,
     }),
-  });
+  })
+  .then(errorFormatter);
 };
 
 export const login = async (email, password) => {
@@ -31,18 +46,12 @@ export const login = async (email, password) => {
       password,
     }),
   })
-  .then(resp => {
-    if(!resp.ok) return Promise.reject(resp.statusText);
-    console.log(resp)
-    return resp.json();
-  })
+  .then(errorFormatter)
   .then(resp => {
     let socketUrl = `${config.crucibleMudSocketUri}?token=${resp.token}`;
     console.log("connecting to socket: ", socketUrl)
     socket = openSocket(socketUrl);
-    window.socket = socket;
-    socket.emit('output', 'what is going on');
     loginEvent.emit('login', socket);
     return resp;
-  })
+  });
 };

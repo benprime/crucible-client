@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './LoginComponent.css';
+import './forms.css';
 import { login } from '../services/auth-service';
 
 
@@ -11,6 +11,7 @@ export default class LoginComponent extends Component {
     this.state = {
       username: '',
       password: '',
+      errors: []
     };
 
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -27,16 +28,37 @@ export default class LoginComponent extends Component {
   }
 
   async submitLogin(event) {
-    var result = await login(this.state.username, this.state.password);
-    console.log("submitLogin", result);
+    event.preventDefault();
+    try {
+      await login(this.state.username, this.state.password);
+      this.errors = [];
+    } catch (errors) {
+      this.setState({
+        errors: errors
+      });
+    }
   }
 
   render() {
     return (
       <div id="userBar" className="userBar">
-        <input type="text" value={this.state.username} onChange={this.handleUserNameChange} />
-        <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-        <button onClick={this.submitLogin}>Login</button>
+        {this.state.errors.length > 0 &&
+          <div className="form-errors">
+            {this.state.errors.map(err => <div key={err}>{err}</div>)}
+          </div>
+        }
+        <div className="form-field">
+          <label>Email Address</label>
+          <input type="text" value={this.state.username} onChange={this.handleUserNameChange} />
+        </div>
+        <div className="form-field">
+          <label>Password</label>
+          <input type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+        </div>
+        <div className="form-field">
+          <label></label>
+          <button onClick={this.submitLogin}>Login</button>
+        </div>
       </div>
     );
   }

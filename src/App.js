@@ -14,7 +14,6 @@ class App extends Component {
     };
 
     loginEvent.on('login', (() => {
-      console.log('just logged in')
       this.setState({
         loggedIn: true
       });

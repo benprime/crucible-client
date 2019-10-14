@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import './Home.css';
 import LoginComponent from './LoginComponent';
+import SignUpComponent from './SignUpComponent';
 
 class Home extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      showSignup: false
+    };
+
+    this.toggleSignUpForm = this.toggleSignUpForm.bind(this);
+  }
+
+  toggleSignUpForm() {
+    this.setState({
+      showSignup: !this.state.showSignup
+    });
+  }
 
   render() {
     return (
@@ -34,8 +50,19 @@ class Home extends Component {
 
     </pre>
 
-    <LoginComponent></LoginComponent>
 
+    <div>
+        {this.state.showSignup
+          ? <SignUpComponent></SignUpComponent>
+          : <LoginComponent></LoginComponent>
+        }
+      </div>
+      <div>
+      {this.state.showSignup
+          ? <a onClick={this.toggleSignUpForm}>Sign-In With Existing Account</a>
+          : <a onClick={this.toggleSignUpForm}>Sign-Up Here</a>
+        }
+      </div>
     </div>
     );
   }

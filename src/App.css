@@ -1,5 +1,7 @@
 a {
   text-decoration: none;
   color: #df6a15;
+  font-family: monospace;
+  cursor: pointer;
 }
 
