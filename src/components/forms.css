@@ -29,9 +29,11 @@ button {
 }
 
 .form-errors {
+  font-family: monospace;
   color: red
 }
 
 .form-messages {
+  font-family: monospace;
   color: green
 }

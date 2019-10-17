@@ -22,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div class="content-wrapper">
         {this.state.loggedIn
           ? <GameScreen></GameScreen>
           : <Home></Home>
